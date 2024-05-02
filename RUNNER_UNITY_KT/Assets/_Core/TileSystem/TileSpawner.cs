@@ -8,9 +8,12 @@ public class TileSpawner : MonoBehaviour
     [SerializeField] public Transform spawnPoint;
     [SerializeField] public float zOffset = 10f;
     private List<int> numsMoving = new List<int>();
+    private List<int> numsFalse = new List<int>();
     private int movingIndex;
     private int falseMovingIndex = -1;
-    private GameObject TakenTile;
+    private List<GameObject> TakenTiles = new List<GameObject>();
+    private GameObject TakenTileToSpawn;
+    private GameObject TakenTileToRemove;
 
     private void Start()
     {
@@ -32,19 +35,25 @@ public class TileSpawner : MonoBehaviour
             movingIndex = Random.Range(0, tilePool.tilePool.Count);
         } while (movingIndex == falseMovingIndex);
 
+        numsFalse.Add(movingIndex);
         numsMoving.Remove(movingIndex);
-        TakenTile = tilePool.GetItem(movingIndex);
+        TakenTileToSpawn = tilePool.GetItem(movingIndex);
         falseMovingIndex = movingIndex;
-        TakenTile.SetActive(true);
-        TakenTile.transform.position = new Vector3(0, 0, zOffset);
+        TakenTiles.Add(TakenTileToSpawn);
+        TakenTileToSpawn.SetActive(true);
+        TakenTileToSpawn.transform.position = new Vector3(0, 0, zOffset);
         zOffset += 10f;
     }
 
     public void removeTitle()
     {
-        Debug.Log("Yeyo");
-        tilePool.ReturnItem(TakenTile);
-        TakenTile.SetActive(false);
+        TakenTileToRemove = TakenTiles[0];
+        tilePool.ReturnItem(TakenTileToRemove);
+        TakenTileToRemove.SetActive(false);
+        numsMoving.Add(numsFalse[0]);
+        numsFalse.Remove(0);
+        TakenTiles.RemoveAt(0);
     }
 
 }
+//tilePool.RemoveAt(movingTitle);
