@@ -16,12 +16,19 @@ public class MainCharacterSystem : MonoBehaviour
             Jump();
         }
 
-        rb.velocity = new Vector3(0, rb.velocity.y, moveSpeed);
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            CancelInvoke("EndCrawl");
+            PerformCrawl();
+        }
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector3(horizontalInput * moveSpeed, rb.velocity.y, moveSpeed);
     }
 
     void Jump()
     {
-        rb.velocity = new Vector3(0, jumpForce, 0);
+        rb.velocity = new Vector3(rb.velocity.x, jumpForce, 0);
         isGrounded = false;
     }
 
@@ -32,4 +39,19 @@ public class MainCharacterSystem : MonoBehaviour
             isGrounded = true;
         }
     }
+
+    void PerformCrawl()
+    {
+        transform.Rotate(90, 0, 0);
+        rb.velocity = new Vector3(rb.velocity.x, 0, -rb.velocity.z);
+        rb.velocity *= 0.5f;
+        Invoke("EndCrawl", 1f);
+    }
+
+    void EndCrawl()
+    {
+        transform.Rotate(-90, 0, 0);
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+    }
 }
+
