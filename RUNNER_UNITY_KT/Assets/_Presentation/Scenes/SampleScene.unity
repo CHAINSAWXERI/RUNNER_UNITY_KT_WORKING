@@ -432,6 +432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a65c5d4ed954cccbae71cc3f170235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 8164405453206634659, guid: 3105b7e4a44bc45ebbb8e4df443d345d, type: 3}
+  pool: []
 --- !u!4 &562310573
 Transform:
   m_ObjectHideFlags: 0
@@ -876,6 +878,8 @@ MonoBehaviour:
   textScore: {fileID: 2023850246}
   scoreView: {fileID: 2118276062}
   bulletPool: {fileID: 562310572}
+  audioManager: {fileID: 1972964692}
+  characterSystem: {fileID: 1772831504}
 --- !u!4 &887352284
 Transform:
   m_ObjectHideFlags: 0
@@ -1275,6 +1279,7 @@ MonoBehaviour:
   moveSpeed: 5
   rb: {fileID: 1772831509}
   shootPosition: {fileID: 1442181064}
+  bulletPool: {fileID: 0}
 --- !u!136 &1772831505
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1391,6 +1396,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1972964692 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6077846225636487397, guid: 332107e5fd06d4ce983c69ace3dd8fc2, type: 3}
+  m_PrefabInstance: {fileID: 5473773722084708056}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f463cb8e776334367913075c6dc6c94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1985136160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1911,8 +1927,8 @@ SceneRoots:
   - {fileID: 878324621}
   - {fileID: 1053963744}
   - {fileID: 363912964}
-  - {fileID: 887352284}
   - {fileID: 2118276063}
+  - {fileID: 887352284}
+  - {fileID: 562310573}
   - {fileID: 632602909}
   - {fileID: 2076613105}
-  - {fileID: 562310573}
