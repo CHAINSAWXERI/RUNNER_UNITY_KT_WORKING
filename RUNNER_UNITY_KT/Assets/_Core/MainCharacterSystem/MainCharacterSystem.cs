@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class MainCharacterSystem : MonoBehaviour
 {
     [SerializeField] public float jumpForce;
     [SerializeField] public float moveSpeed;
     [SerializeField] public Rigidbody rb;
+    [SerializeField] public GameObject shootPosition;
     private bool isGrounded = true;
+    public BulletPool bulletPool;
+    public AudioManager audioManager { private get; set; }
 
     void Update()
     {
@@ -20,6 +24,11 @@ public class MainCharacterSystem : MonoBehaviour
         {
             CancelInvoke("EndCrawl");
             PerformCrawl();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Shoot();
         }
 
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -52,6 +61,21 @@ public class MainCharacterSystem : MonoBehaviour
     {
         transform.Rotate(-90, 0, 0);
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+    }
+
+    void Shoot()
+    {
+        if (bulletPool != null && audioManager != null)
+        {
+            GameObject bullet = bulletPool.GetBullet();
+            bullet.transform.position = shootPosition.transform.position;
+            audioManager.PlayShootSound();
+        }
+        else
+        {
+            Debug.Log("SORRY ERROR");
+        }
+        
     }
 }
 
