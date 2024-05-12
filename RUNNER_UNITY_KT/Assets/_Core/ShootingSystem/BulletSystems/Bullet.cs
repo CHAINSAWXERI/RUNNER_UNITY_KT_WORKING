@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float lifetime;
     [SerializeField] private AudioManager audioManager;
-    private float oldLifeTime;
+    private float currentLifeTime;
 
     [Inject]
     public void Construct(AudioManager audioManager)
@@ -19,11 +19,18 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        if(gameObject.activeInHierarchy)
+        {
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(Vector3.zero);
+        }
 
-        oldLifeTime = lifetime;
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0)
+        currentLifeTime -= Time.deltaTime;
+
+        if (currentLifeTime <= 0)
         {
             DestroyBullet();
         }
@@ -44,6 +51,7 @@ public class Bullet : MonoBehaviour
 
     void DestroyBullet()
     {
+        ResetLifeTime();
         gameObject.SetActive(false);
     }
 
@@ -53,8 +61,8 @@ public class Bullet : MonoBehaviour
         obstacle.SetActive(false);
     }
 
-    public void Shoot()
+    public void ResetLifeTime()
     {
-        lifetime = oldLifeTime;
+        currentLifeTime = lifetime;
     }
 }

@@ -26,9 +26,4 @@ public class BulletPool : MonoBehaviour
         }
         return InstantiateBullet(Vector3.zero, Quaternion.identity); // Если нет неактивных пуль в пуле, создаем новую
     }
-
-    public void ReturnBullet(GameObject bullet)
-    {
-        bullet.SetActive(false); // Деактивируем пулю
-    }
 }

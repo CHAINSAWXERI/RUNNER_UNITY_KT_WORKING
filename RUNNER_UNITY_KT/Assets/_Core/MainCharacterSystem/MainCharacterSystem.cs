@@ -71,10 +71,6 @@ public class MainCharacterSystem : MonoBehaviour
             bullet.transform.position = shootPosition.transform.position;
             audioManager.PlayShootSound();
         }
-        else
-        {
-            Debug.Log("SORRY ERROR");
-        }
         
     }
 }
