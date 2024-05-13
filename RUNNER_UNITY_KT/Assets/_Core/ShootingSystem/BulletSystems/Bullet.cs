@@ -8,13 +8,18 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float lifetime;
-    [SerializeField] private AudioManager audioManager;
     private float currentLifeTime;
+    private AudioManager audioManager;
 
     [Inject]
-    public void Construct(AudioManager audioManager)
+    public void Construct(AudioManager _audioManager)
     {
-        this.audioManager = audioManager;
+        this.audioManager = _audioManager;
+    }
+
+    public void Start()
+    {
+        currentLifeTime = lifetime;
     }
 
     void Update()
@@ -38,16 +43,10 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
-        {
-            DestroyObstacle(other.gameObject);
-            DestroyBullet();
-        }
-        else
-        {
-            DestroyBullet();
-        }
+        DestroyObstacle(other.gameObject);
+        DestroyBullet();
     }
+
 
     void DestroyBullet()
     {
@@ -57,8 +56,8 @@ public class Bullet : MonoBehaviour
 
     void DestroyObstacle(GameObject obstacle)
     {
-        audioManager.PlayObstacleDestroySound();
         obstacle.SetActive(false);
+        audioManager.PlayObstacleDestroySound();
     }
 
     public void ResetLifeTime()

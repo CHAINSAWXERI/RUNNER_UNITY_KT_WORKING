@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lifetime: 2
-  audioManager: {fileID: 6077846225636487397, guid: 332107e5fd06d4ce983c69ace3dd8fc2, type: 3}
+  audioManager: {fileID: 0}
 --- !u!54 &7906456168769394690
 Rigidbody:
   m_ObjectHideFlags: 0

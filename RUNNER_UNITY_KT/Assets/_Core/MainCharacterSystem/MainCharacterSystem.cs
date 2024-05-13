@@ -28,8 +28,7 @@ public class MainCharacterSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Shoot();
-        }
+            Shoot2();        }
 
         float horizontalInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector3(horizontalInput * moveSpeed, rb.velocity.y, moveSpeed);
@@ -63,15 +62,15 @@ public class MainCharacterSystem : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
     }
 
-    void Shoot()
+    void Shoot2()
     {
         if (bulletPool != null && audioManager != null)
         {
-            GameObject bullet = bulletPool.GetBullet();
-            bullet.transform.position = shootPosition.transform.position;
+            Bullet bullet2 = bulletPool.GetBullet();
+            bullet2.gameObject.transform.position = shootPosition.transform.position;
             audioManager.PlayShootSound();
         }
-        
+
     }
 }
 

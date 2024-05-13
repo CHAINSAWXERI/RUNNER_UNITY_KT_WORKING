@@ -26,6 +26,8 @@ public class TileSpawner : MonoBehaviour
         SpawnTitle();
         SpawnTitle();
         SpawnTitle();
+        SpawnTitle();
+        SpawnTitle();
     }
 
     public void SpawnTitle()

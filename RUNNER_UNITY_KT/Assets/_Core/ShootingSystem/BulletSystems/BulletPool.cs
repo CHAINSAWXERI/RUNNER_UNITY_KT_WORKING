@@ -4,23 +4,24 @@ using Zenject;
 
 public class BulletPool : MonoBehaviour
 {
-    [SerializeField] private GameObject bulletPrefab;
-    public List<GameObject> pool = new List<GameObject>();
+    [SerializeField] private Bullet bulletPrefab;
+    public List<Bullet> pool = new List<Bullet>();
 
-    public GameObject InstantiateBullet(Vector3 position, Quaternion rotation)
+    public Bullet InstantiateBullet(Vector3 position, Quaternion rotation)
     {
-        GameObject newBulletObject = Instantiate(bulletPrefab, position, rotation);
+        Bullet newBulletObject = Instantiate(bulletPrefab, position, rotation);
+        newBulletObject.gameObject.SetActive(false);
         pool.Add(newBulletObject);
         return newBulletObject;
     }
 
-    public GameObject GetBullet()
+    public Bullet GetBullet()
     {
-        foreach (GameObject bullet in pool)
+        foreach (Bullet bullet in pool)
         {
-            if (!bullet.activeInHierarchy)
+            if (!bullet.gameObject.activeInHierarchy)
             {
-                bullet.SetActive(true); // Активируем неактивную пулю
+                bullet.gameObject.SetActive(true); // Активируем неактивную пулю
                 return bullet;
             }
         }

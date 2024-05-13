@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioClip shootSound;
-    public AudioClip obstacleDestroySound;
+    [SerializeField] private AudioClip shootSound;
+    [SerializeField] private AudioClip obstacleDestroySound;
+    [SerializeField] private AudioSource audioSource;
 
     public void PlayShootSound()
     {
-        // Воспроизведение звука выстрела
+        audioSource.PlayOneShot(shootSound);
     }
 
     public void PlayObstacleDestroySound()
     {
-        // Воспроизведение звука разрушения препятствия
+        audioSource.PlayOneShot(obstacleDestroySound);
     }
 }

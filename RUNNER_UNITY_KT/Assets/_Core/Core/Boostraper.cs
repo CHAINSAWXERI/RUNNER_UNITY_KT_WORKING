@@ -25,7 +25,8 @@ public class Boostraper : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            GameObject newBullet = characterSystem.bulletPool.InstantiateBullet(Vector3.zero, Quaternion.identity);
+            Bullet newBullet = characterSystem.bulletPool.InstantiateBullet(Vector3.zero, Quaternion.identity);
+            newBullet.Construct(audioManager);
             newBullet.gameObject.SetActive(false);
         }
     }
