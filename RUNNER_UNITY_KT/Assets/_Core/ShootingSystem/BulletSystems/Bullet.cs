@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float lifetime;
+    [SerializeField] private LayerMask obstacleObjectMask;
     private float currentLifeTime;
     private AudioManager audioManager;
 
@@ -43,10 +44,12 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        DestroyObstacle(other.gameObject);
-        DestroyBullet();
+        if (obstacleObjectMask == (obstacleObjectMask | (1 << other.gameObject.layer)))
+        {
+            DestroyObstacle(other.gameObject);
+            DestroyBullet();
+        }
     }
-
 
     void DestroyBullet()
     {

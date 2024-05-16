@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using System.Collections;
 
 public class MainCharacterSystem : MonoBehaviour
 {
@@ -9,6 +7,10 @@ public class MainCharacterSystem : MonoBehaviour
     [SerializeField] public float moveSpeed;
     [SerializeField] public Rigidbody rb;
     [SerializeField] public GameObject shootPosition;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask deathObjectMask;
+    [SerializeField] private GameObject deathScreen;
+    [SerializeField] private FinalScore finalScore;
     private bool isGrounded = true;
     public BulletPool bulletPool;
     public AudioManager audioManager { private get; set; }
@@ -28,7 +30,8 @@ public class MainCharacterSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Shoot2();        }
+            Shoot();        
+        }
 
         float horizontalInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector3(horizontalInput * moveSpeed, rb.velocity.y, moveSpeed);
@@ -42,9 +45,15 @@ public class MainCharacterSystem : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if ((groundMask == (groundMask | (1 << collision.gameObject.layer))))
         {
             isGrounded = true;
+        }
+
+        if ((deathObjectMask == (deathObjectMask | (1 << collision.gameObject.layer))))
+        {
+            deathScreen.SetActive(true);
+            finalScore.EndGame();
         }
     }
 
@@ -62,12 +71,12 @@ public class MainCharacterSystem : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
     }
 
-    void Shoot2()
+    void Shoot()
     {
         if (bulletPool != null && audioManager != null)
         {
-            Bullet bullet2 = bulletPool.GetBullet();
-            bullet2.gameObject.transform.position = shootPosition.transform.position;
+            Bullet bullet = bulletPool.GetBullet();
+            bullet.gameObject.transform.position = shootPosition.transform.position;
             audioManager.PlayShootSound();
         }
 

@@ -121,7 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lifetime: 2
-  audioManager: {fileID: 0}
+  obstacleObjectMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!54 &7906456168769394690
 Rigidbody:
   m_ObjectHideFlags: 0
